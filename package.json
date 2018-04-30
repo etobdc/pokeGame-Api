@@ -1,0 +1,32 @@
+{
+  "name": "pokeGame-api",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js",
+    "linter": "eslint . --fix || true",
+    "knex": "knex",
+    "migrate": "knex migrate:latest",
+    "seeder": "knex seed:run"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.2",
+    "express": "^4.16.2",
+    "express-load": "^1.1.16",
+    "express-validator": "^4.3.0",
+    "knex": "^0.14.4",
+    "mysql": "^2.15.0"
+  },
+  "devDependencies": {
+    "eslint": "^4.17.0",
+    "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.10.0",
+    "eslint-plugin-node": "^6.0.1",
+    "eslint-plugin-promise": "^3.7.0",
+    "eslint-plugin-standard": "^3.0.1",
+    "nodemon": "^1.14.12"
+  }
+}
