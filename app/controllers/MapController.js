@@ -36,6 +36,30 @@ function MapController (app) {
         ErrorsHandler.serverError('fail to list map', err)
       })
   }
+
+
+  app.post('/map', createMap)
+
+  function createMap (req, res) {
+    const validation = validationResult(req)
+    const ErrorsHandler = new app.helpers.ErrorsHandler(req, res)
+    if (ErrorsHandler.bodyError(validation)) return
+
+    let body = Object.assign(req.body)
+    const MapDAO = new app.services.MapDAO()
+
+    registerMap()
+
+    function registerMap () {
+      return MapDAO.store(body)
+      .then(id => {
+        res.json({id})
+      })
+      .catch(err => {
+        ErrorsHandler.serverError('fail to create Map', err)
+      })
+    }
+  }
 }
 
 module.exports = MapController

@@ -12,7 +12,7 @@ function DAOFn () {
     }
 
     store (data) {
-      data = this.fields.filter(data)
+      // data = this.fields.filter(data)
       return this.knex(this.table)
         .insert(data)
         .then(id => id[0])
