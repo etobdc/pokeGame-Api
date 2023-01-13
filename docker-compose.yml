@@ -1,23 +1,41 @@
-version: '2'
+version: "2"
 services:
-  web:
+  pokegame:
     build: .
     command: npm run start
+    ports:
+      - 3000:8000
     volumes:
       - .:/usr/src/app/
       - /usr/src/app/node_modules
+    networks:
+      - pokegame
+    tty: true
+    container_name: pokegame
+  mysql_pokegame:
+    image: mariadb:10.3
+    entrypoint: docker-entrypoint.sh --sql-mode='STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
     ports:
-      - "3000:8080"
-    links:
-      - mysql
-
-  mysql:
-    image: mysql:latest
-    restart: always
-    volumes:
-      - ./docker/bd:/var/lib/mysql
+      - 3306:3306
+    networks:
+      - pokegame
     environment:
-      - MYSQL_ROOT_PASSWORD=root
+      - MYSQL_ROOT_PASSWORD=123456
+      - MYSQL_USER=user
+      - MYSQL_PASSWORD=123456
       - MYSQL_DATABASE=pokegame
+    container_name: mysql_pokegame
+  phpmyadmin_pokegame:
+    image: phpmyadmin/phpmyadmin
     ports:
-      - 3300:3306
+      - 8181:80
+    networks:
+      - pokegame
+    environment:
+      PMA_HOST: mysql_pokegame
+      UPLOAD_LIMIT: 400M
+    container_name: phpmyadmin_pokegame
+networks:
+  pokegame:
+    external:
+      name: pokegame_network
