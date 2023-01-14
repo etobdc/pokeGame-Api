@@ -1,7 +1,7 @@
 const connection = {
-  host: 'localhost',
+  host: '172.17.0.1',
   user: 'root',
-  password: 'server897',
+  password: '123456',
   database: 'pokegame'
 }
 
