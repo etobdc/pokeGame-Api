@@ -4,7 +4,7 @@ services:
     build: .
     command: npm run start
     ports:
-      - 3000:8000
+      - 3000:3000
     volumes:
       - .:/usr/src/app/
       - /usr/src/app/node_modules
@@ -12,6 +12,8 @@ services:
       - pokegame
     tty: true
     container_name: pokegame
+    links: 
+      - mysql_pokegame
   mysql_pokegame:
     image: mariadb:10.3
     entrypoint: docker-entrypoint.sh --sql-mode='STRICT_TRANS_TABLES,STRICT_ALL_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,TRADITIONAL,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION'
