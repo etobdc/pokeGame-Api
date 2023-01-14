@@ -20,9 +20,7 @@ function DAOFn () {
 
     find (where) {
       where = this.formatWhere(where)
-      return this.knex()
-        .select()
-        .from(this.table)
+      return this.knex(this.table)
         .where(where)
     }
 

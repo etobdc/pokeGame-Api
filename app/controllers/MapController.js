@@ -1,4 +1,4 @@
-const { check, validationResult } = require('express-validator/check')
+const { validationResult } = require('express-validator/check')
 
 function MapController (app) {
   app.get('/map', listMap)
@@ -37,7 +37,6 @@ function MapController (app) {
       })
   }
 
-
   app.post('/map', createMap)
 
   function createMap (req, res) {
@@ -52,12 +51,12 @@ function MapController (app) {
 
     function registerMap () {
       return MapDAO.store(body)
-      .then(id => {
-        res.json({id})
-      })
-      .catch(err => {
-        ErrorsHandler.serverError('fail to create Map', err)
-      })
+        .then(id => {
+          res.json({id})
+        })
+        .catch(err => {
+          ErrorsHandler.serverError('fail to create Map', err)
+        })
     }
   }
 }
